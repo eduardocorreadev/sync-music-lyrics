@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Lyrics Sync Music</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- Style Documents -->
+    <link rel="stylesheet" href="assets/css/general.css">
+
+</head>
+<body>
+    <!-- Audio -->
+    <audio>
+        <source src="" type="audio/mpeg">
+    </audio>
+    <!-- End Audio -->
+
+    <!-- Wrapper -->
+    <div class="wrapper main" id="wrapper">
+
+        <!-- Header Main -->
+        <header class="header-main">
+
+            <!-- Container -->
+            <div class="container">
+                <img src="assets/images/logo.png">
+                <a href="sync.html">Criar Sync</a>
+            </div>
+            <!-- End Container -->
+
+        </header>
+        <!-- End Header Main -->
+
+        <!-- Container Lyrics -->
+        <div class="container-lyrics">
+            <div class="sync-list" id="sync-list"></div> <!-- Sync List -->
+        </div>
+        <!-- End Container Lyrics -->
+
+    </div>
+    <!-- End Wrapper -->
+
+    <!-- Viewer Lyrics -->
+    <div id="viewer-lyrics" style="display: none;">
+        <canvas id="stars"></canvas> <!-- Canvas Stars Background -->
+
+        <!-- Sync Action -->
+        <div class="sync-action" id="sync-action">
+            <span class="current"></span>
+        </div>
+        <!-- End Sync Action -->
+
+        <!-- Footer Viewer -->
+        <footer class="footer-viewer">
+            <ul>
+                <li class="control-play">
+                    <i class="fas fa-pause"></i>
+                </li>
+                <li class="control-full">
+                    <i class="fas fa-compress"></i>
+                </li>
+                <li class="control-delete">
+                    <i class="fas fa-trash"></i>
+                </li>
+                <li class="control-close">
+                    <i class="fas fa-times-circle"></i>
+                </li>
+            </ul>
+        </footer>
+        <!-- End Footer Viewer -->
+    </div>
+    <!-- End Viewer Lyrics -->
+    
+    <!-- Javascript Documents -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/viewer.js"></script>
+    <script src="assets/js/anime.js"></script>
+</body>
+</html>

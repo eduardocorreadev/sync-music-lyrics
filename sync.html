@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Lyrics Sync Music</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <!-- Style Documents -->
+    <link rel="stylesheet" href="assets/css/general.css">
+
+</head>
+<body>
+    <!-- Audio -->
+    <audio>
+        <source src="" type="audio/mpeg">
+    </audio>
+    <!-- End Audio -->
+
+    <!-- Wrapper -->
+    <div class="wrapper sync-page" id="wrapper">
+
+        <!-- Navbar Left -->
+        <div class="navbar-left">
+
+            <!-- Nav -->
+            <nav>
+                <img src="assets/images/logo.png">
+                <ul>
+                    <li>
+                        <i class="fas fa-check" id="button-check"></i>
+                    </li>
+                    <li>
+                        <i class="fas fa-times" id="button-cancel"></i>
+                    </li>
+                    <li>
+                        <i class="fas fa-music" id="button-music-list"></i>
+                    </li>
+                </ul>
+            </nav>
+            <!-- End Nav -->
+
+            <!-- Select Music -->
+            <div class="select-music" id="select-music">
+                <h2>
+                    Selecionar Música 
+                    <span class="count-musics">(3)</span>
+                </h2>
+    
+                <div class="list-music" id="music-list"></div> <!-- Show Musics -->
+            </div>
+            <!-- End Select Music -->
+
+        </div>
+        <!-- End Navbar Left -->
+
+        <!-- Main -->
+        <main class="main">
+
+            <!-- Header Sync -->
+            <header class="header" id="header-main">
+                
+                <!-- Container Header Sync -->
+                <div class="container">
+                    <div class="music-data">
+                        <h3 id="name-music-header"></h3>
+                        <p id="author-music-header"></p>
+                    </div>
+                    <div class="music-timer" id="music-timer">
+                        <span id="music-timer-span">
+                            
+                        </span>
+                    </div>
+                </div>
+                <!-- End Container Header Sync -->
+
+            </header>
+            <!-- End Header Sync -->
+
+            <!-- Container Main Sync -->
+            <div class="container-main" id="container-main">
+                <div class="msg-music">
+                    <img src="assets/images/logo.png">
+                    <h3>Nenhuma música selecionada!</h3>
+                    <button type="button">Ver lista de música</button>
+                </div>
+            </div>
+            <!-- End Container Main Sync -->
+    
+            <!-- Controls - Footer -->
+            <footer class="controls" id="footer-main">
+                <ul>
+                    <li id="control-play">
+                        <i class="fas fa-play"></i>
+                    </li>
+                    <li id="control-restart">
+                        <i class="fas fa-redo-alt"></i>
+                    </li>
+                    <li id="control-add" class="control-add">
+                        <i class="fas fa-plus-circle"></i>
+                    </li>
+                    <li id="control-lyrics" class="control-on">
+                        <i class="fas fa-copy"></i>
+                    </li>
+                    <li id="control-trash">
+                        <i class="fas fa-trash"></i>
+                    </li>
+                </ul>
+            </footer>
+            <!-- End Controls - Footer -->
+
+        </main>
+        <!-- End Main -->
+
+        <!-- Lyrics Area -->
+        <div class="lyrics-area" id="lyrics-area">
+            <h3>Letra da Música</h3>
+            <p>Adicione a letra da música na caixa abaixo</p>
+            <textarea name="lyrics" id="lyrics-content"></textarea>
+
+            <div class="buttons-lyrics">
+                <button type="button" id="save-lyrics">Salvar</button>
+                <button type="button" id="cancel-lyrics">Cancelar</button>
+            </div>
+        </div>
+        <!-- End Lyrics Area -->
+
+    </div>
+    <!-- End Wrapper -->
+
+    <!-- Javascript Documents -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/sync.js"></script>
+</body>
+</html>

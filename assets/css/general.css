@@ -1,0 +1,678 @@
+/* ============= */
+/* Google Fonts */
+/* =========== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
+
+/* ==================== */
+/* General Definitions */
+/* ================== */
+* {
+    margin: 0; 
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+    font-weight: normal;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+html, body {
+    background: var(--Background);
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+}
+
+ul li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+
+:root {
+/* ========================== */
+/* Color Palette Definitions */
+/* ======================== */
+
+    --Background:#282a36;
+    --CurrentLine:#44475a;
+    --Foreground:#f8f8f2;
+    --Comment:	#6272a4;
+    --Cyan:	#8be9fd;
+    --Green:#50fa7b;
+    --Orange:#ffb86c;
+    --Pink:	#ff79c6;
+    --Purple: #bd93f9;
+    --Red: #ff5555;
+    --Yellow: #f1fa8c;
+
+/* ========== */
+/* Variables */
+/* ======== */
+
+    /* Font Size */
+    --fontSize05: 4.8rem;
+    --fontSize04: 3.5rem;
+    --fontSize03: 2.4rem;
+    --fontSize02: 1.8rem;
+    --fontSize01: 1.3rem;
+
+}
+
+
+/* =============== */
+/* Other settings */
+/* ============= */
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper.sync-page {
+    display: flex;
+}
+
+header.header-main {
+    width: 100%;
+    height: 60px;
+    background: var(--CurrentLine);
+}
+
+header.header-main .container {
+    width: 95%;
+    max-width: 1300px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header.header-main .container img {
+    width: 100%;
+    max-width: 100px;
+    cursor: pointer;
+}
+
+header.header-main .container a {
+    width: 100%;
+    max-width: 200px;
+    height: 40px;
+    color: var(--Foreground);
+    background: var(--Purple);
+    font-size: var(--fontSize01);
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+    display: block;
+}
+
+/* Main Page */
+.container-lyrics {
+    width: 95%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+.container-lyrics h2 {
+    color: var(--Foreground);
+    font-size: var(--fontSize03);
+    font-weight: normal;
+    text-align: center;
+}
+
+.container-lyrics .sync-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px 0;
+}
+
+.container-lyrics .sync-list .music {
+    flex: 1 0 250px;
+    height: 70px;
+    color: var(--Foreground);
+    background: var(--CurrentLine);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border-left: 5px solid var(--Cyan);
+    cursor: pointer;
+}
+
+.container-lyrics .sync-list .music .details h3,
+.container-lyrics .sync-list .music .details p,
+.container-lyrics .sync-list .music span {
+    font-size: var(--fontSize01);
+}
+
+.container-lyrics .sync-list .music span {
+    background: var(--Background);
+    padding: 3px 5px;
+    border-radius: 10px;
+}
+
+.container-lyrics .sync-list .no-sync {
+    width: 100%;
+    color: var(--Foreground);
+    text-align: center;
+    padding: 50px 0;
+}
+
+.container-lyrics .sync-list .no-sync img {
+    width: 100%;
+    max-width: 200px;
+}
+
+.container-lyrics .sync-list .no-sync h3 {
+    font-size: var(--fontSize02);
+    margin: 10px;
+}
+
+.container-lyrics .sync-list .no-sync p {
+    font-size: var(--fontSize01);
+}
+
+.container-lyrics .sync-list .no-sync p {
+    display: block;
+}
+
+
+/* Navbar Left */
+.navbar-left {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 70px;
+    height: 100%;
+}
+
+.navbar-left img {
+    width: 95%;
+    max-width: 50px;
+    margin: 20px 0 10px 0;
+    cursor: pointer;
+}
+
+.navbar-left nav {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--Background);
+    border-right: 1px solid #494949;
+    text-align: center;
+}
+
+.navbar-left nav ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-left nav ul li {
+    margin: 5px 0;
+}
+
+.navbar-left nav ul li i {
+    color: var(--Comment);
+    font-size: var(--fontSize02);
+    padding: 10px;
+    display: block;
+    cursor: pointer;
+}
+
+.navbar-left nav ul li i:hover,
+.navbar-left nav ul li i.active {
+    color: var(--Foreground);
+    border-left: 3px solid var(--Red);
+}
+
+.navbar-left .select-music {
+    position: absolute;
+    left: -420px;
+    top: 0;
+    z-index: -1;
+    width: 350px;
+    height: 100%;
+    background: var(--CurrentLine);
+    text-align: left;
+    transition: all 0.3s;
+}
+
+.navbar-left .select-music.music-list-on {
+    left: 70px;
+}
+
+.navbar-left .select-music h2 {
+    color: var(--Foreground);
+    background: var(--Comment);
+    font-size: var(--fontSize01);
+    font-weight: normal;
+    padding: 10px 20px;
+}
+
+.navbar-left .select-music .list-music .music {
+    width: 100%;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.navbar-left .select-music .list-music .music:hover,
+.navbar-left .select-music .list-music .music.select-music {
+    background: var(--Background);
+    border-right: 4px solid var(--Red);
+}
+
+.navbar-left .select-music .list-music .music h3 {
+    color: var(--Foreground);
+    font-size: var(--fontSize02);
+    font-weight: bold;
+}
+
+.navbar-left .select-music .list-music .music p {
+    color: var(--Foreground);
+    font-size: var(--fontSize01);
+}
+
+
+/* Main */
+main.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 70px;
+    overflow: hidden;
+}
+
+main.main .container-main {
+    width: 95%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+main.main .container-main .lyrics-container {
+    height: 55vh; 
+    overflow: auto;
+}
+
+main.main .container-main .lyrics-container::-webkit-scrollbar {
+  width: 3px;
+}
+
+main.main .container-main .lyrics-container::-webkit-scrollbar-track {
+  background: var(--Background);
+}
+
+main.main .container-main .lyrics-container::-webkit-scrollbar-thumb {
+  background: var(--Red);
+}
+
+main.main .container-main .lyrics-container .block-lyrics {
+    width: 100%;
+    height: 60px;
+    color: var(--Foreground);
+    background: var(--CurrentLine);
+    margin-bottom: 20px;
+    padding: 10px;
+    border-left: 5px solid var(--Comment);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+main.main .container-main .lyrics-container .block-lyrics h3 {
+    font-size: var(--fontSize02);
+    font-weight: normal;
+}
+
+main.main .container-main .lyrics-container .block-lyrics span {
+    font-size: var(--fontSize01);
+    background: var(--Background);
+    padding: 3px 5px;
+    border-radius: 10px;
+} 
+
+main.main .container-main .lyrics-container .block-lyrics.current {
+    border-left: 5px solid var(--Orange);
+    background: rgba(255, 184, 108, 0.4);
+}
+
+main.main .container-main .lyrics-container .block-lyrics.done {
+    border-left: 5px solid var(--Green);
+    background: rgba(80, 250, 123, 0.4);
+}
+
+main.main .container-main .msg-music {
+    width: 100%;
+    max-width: 500px;
+    height: 80vh;
+    margin: 0 auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main.main .container-main .msg-music img {
+    width: 100%;
+    max-width: 200px;
+}
+
+main.main .container-main .msg-music h3 {
+    color: var(--Foreground);
+    font-size: var(--fontSize03);
+    font-weight: normal;
+    margin: 20px 0;
+}
+
+main.main .container-main .msg-music p {
+    color: var(--Foreground);
+    font-size: var(--fontSize01);
+}
+
+main.main .container-main .msg-music button {
+    width: 100%;
+    max-width: 200px;
+    height: 45px;
+    color: var(--Foreground);
+    background: var(--Comment);
+    border: none;
+    font-size: var(--fontSize01);
+}
+
+
+/* Header */
+header.header {
+    width: 100%;
+    height: 70px;
+    background: var(--Background);
+    border-bottom: 1px solid #494949;
+    transition: all 0.3s;
+    display: none;
+}
+
+header.header .container {
+    width: 95%; 
+    max-width: 1300px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header.header .container .music-data {
+    color: var(--Foreground);
+}
+
+header.header .container .music-data h3 {
+    font-size: var(--fontSize02);
+    font-weight: normal;
+}
+
+header.header .container .music-data p {
+    font-size: var(--fontSize01);
+}
+
+header.header .container .music-timer span {
+    color: var(--Foreground);
+    font-size: var(--fontSize02);
+}
+
+header.header .container .music-timer span span.current-time {
+    color: var(--Green);
+}
+
+header.header .container .music-timer span span.total-time {
+    color: var(--Red);
+}
+
+
+/* Footer */
+footer.controls {
+    width: 100%;
+    height: 70px;
+    background: var(--Background);
+    border-top: 1px solid #494949;
+    display: none;
+}
+
+footer.controls ul {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer.controls ul li {
+    margin: 0 20px;
+}
+
+footer.controls ul li i {
+    color: var(--CurrentLine);
+    font-size: var(--fontSize03);
+    cursor: pointer;
+}
+
+footer.controls ul li.control-on i {
+    color: var(--Foreground);
+}
+
+footer.controls ul li.control-add i {
+    color: var(--Green);
+    font-size: var(--fontSize05);
+}
+
+footer.controls ul li.control-trash i {
+    color: var(--Red);
+}
+
+footer.controls ul li.no-lyrics i {
+    opacity: 1;
+    animation: noLyricsAnime 0.7s ease infinite;
+}
+
+@keyframes noLyricsAnime {
+    to {
+        opacity: 0.3;
+    }
+}
+
+
+/* Lyrics Area */
+.lyrics-area {
+    position: absolute;
+    left: -100%;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    background: var(--CurrentLine);
+    padding: 20px;
+    transition: all 0.3s;
+}
+
+.lyrics-area.on-lyrics-area {
+    left: 0;
+}
+
+.lyrics-area h3 {
+    color: var(--Foreground);
+    font-size: var(--fontSize02);
+}
+
+.lyrics-area p {
+    color: var(--Foreground);
+    font-size: var(--fontSize01);
+    margin-bottom: 10px;
+}
+
+.lyrics-area textarea {
+    width: 100%;
+    height: 50vh;
+    color: var(--Foreground);
+    background: var(--Background);
+    padding: 10px;
+    border: none;
+    resize: none;
+}
+
+.lyrics-area textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lyrics-area textarea::-webkit-scrollbar-track {
+    background: #888;
+}
+
+.lyrics-area textarea::-webkit-scrollbar-thumb {
+  background: var(--Red);
+}
+
+.lyrics-area .buttons-lyrics {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.lyrics-area .buttons-lyrics button {
+    width: 100%;
+    max-width: 200px;
+    height: 45px;
+    border: none;
+}
+
+.lyrics-area .buttons-lyrics button#save-lyrics {
+    color: var(--Foreground);
+    background: var(--Green);
+}
+
+.lyrics-area .buttons-lyrics button#cancel-lyrics {
+    color: var(--Foreground);
+    background: var(--Red);
+}
+
+
+/* Loading */
+.loading {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.loading i {
+    color: var(--Red);
+    font-size: 10em;
+    transform: rotate(0degs);
+    animation: loadingAnime 1s ease infinite;
+}
+
+@keyframes loadingAnime {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Viewer Lyrics */
+#viewer-lyrics {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#viewer-lyrics canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#viewer-lyrics .sync-action {
+    position: absolute;
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#viewer-lyrics .sync-action span {
+    width: 95%;
+    max-width: 1300px;
+    color: var(--Foreground);
+    font-size: 6.0rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px 0;
+    text-align: center;
+    transform: scale(1);
+    opacity: 1;
+    animation: lyricsAnime 0.4s ease-out;
+}
+
+@keyframes lyricsAnime {
+    from {
+        transform: scale(0.5);
+        opacity: 0.1;
+    }
+}
+
+#viewer-lyrics footer.footer-viewer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 30px 0;
+}
+
+#viewer-lyrics footer.footer-viewer ul {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#viewer-lyrics footer.footer-viewer ul li {
+    color: var(--CurrentLine);
+    font-size: var(--fontSize04);
+    margin: 0 25px;
+    cursor: pointer;
+}
+
+#viewer-lyrics footer.footer-viewer ul li.control-play {
+    color: var(--Green);
+}
+
+#viewer-lyrics footer.footer-viewer ul li.control-full:hover {
+    color: var(--Orange);
+}
+
+#viewer-lyrics footer.footer-viewer ul li.control-delete:hover {
+    color: var(--Red);
+}
+
+#viewer-lyrics footer.footer-viewer ul li.control-close:hover {
+    color: var(--Foreground);
+}
