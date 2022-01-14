@@ -110,7 +110,7 @@ header.header-main .container a {
     max-width: 200px;
     height: 40px;
     color: var(--Foreground);
-    background: var(--Purple);
+    background: var(--Comment);
     font-size: var(--fontSize01);
     font-weight: bold;
     line-height: 40px;
@@ -631,6 +631,10 @@ footer.controls ul li.no-lyrics i {
     transform: scale(1);
     opacity: 1;
     animation: lyricsAnime 0.4s ease-out;
+}
+
+#viewer-lyrics .sync-action span.next {
+    color: var(--CurrentLine);
 }
 
 @keyframes lyricsAnime {

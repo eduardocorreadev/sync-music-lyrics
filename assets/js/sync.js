@@ -80,8 +80,6 @@ window.onload = () => {
         }
     }
 
-    loadMusic()
-
     function createElementsLyrics() {
         createLyricsContainer.classList.add('lyrics-container')
 
@@ -103,6 +101,8 @@ window.onload = () => {
 
         blockLyrics = createLyricsContainer.querySelectorAll('.block-lyrics')
     }
+
+
 
 
     let current = 0

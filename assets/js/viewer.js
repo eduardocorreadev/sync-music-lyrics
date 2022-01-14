@@ -40,13 +40,15 @@ musicElements.forEach(music => {
         for (let prop in musicsLocal) {
             if (musicsLocal[prop].directory == dataDirectory) {
                 viewerElement.style.display = 'block'
+                titlePage = `${musicsLocal[prop].name} | ${musicsLocal[prop].author}`
 
-                document.title = `${musicsLocal[prop].name} | ${musicsLocal[prop].author}`
+                currentMusic.directory = dataDirectory
+                setLocal('currentMusic', JSON.stringify(currentMusic))
 
                 source.src = 'musics/' + musicsLocal[prop].directory
                 audio.load()
                 audio.currentTime = 0
-                audio.play()
+                audio.play() 
 
                 for (let prop in musicElements) {
                     if (musicElements[prop] == music) {
@@ -87,10 +89,60 @@ viewerElement.querySelector('.control-play').addEventListener('click', event => 
 
     setLocal('controls', JSON.stringify(controlsLocal))
 })
+
+
+function getFullscreenElement() {
+    return document.fullscreenElement
+        || document.webkitFullscreenElement
+        || document.mozFullscreenElement
+        || document.msFullscreenElement
+}
+
+function toggleFullscreen() {
+    if (getFullscreenElement()) {
+        document.exitFullscreen()
+    } else {
+        document.documentElement.requestFullscreen()
+    }
+}
+
+viewerElement.querySelector('.control-full').addEventListener('click', () => {
+    toggleFullscreen()
+})
+
+
+function closeViewer() {
+    viewerElement.style.display = 'none'
+    resetProcess()
+}
+
 viewerElement.querySelector('.control-delete').addEventListener('click', () => {
+    audio.pause()
+
+    for (let prop in syncLocal) {
+        if (syncLocal[prop].directory == currentMusic.directory) {
+
+            if (confirm("Tem certeza que deseja deletar para sempre este Sync?") == true) {
+                syncLocal.splice(prop, 1)
+                setLocal('sync', JSON.stringify(syncLocal))
+
+                closeViewer()
+            }
+
+            break
+        }
+    }
 
 })
 
 viewerElement.querySelector('.control-close').addEventListener('click', () => {
+    closeViewer()
+})
 
+audio.addEventListener('ended', () => {
+    closeViewer()
+})
+
+window.addEventListener('beforeunload', () => {
+    resetProcess()
 })
