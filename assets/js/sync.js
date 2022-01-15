@@ -81,13 +81,14 @@ window.onload = () => {
     }
 
     function createElementsLyrics() {
+        const getLyrics = currentMusic.lyrics.split('\n')
+
         createLyricsContainer.classList.add('lyrics-container')
 
         containerMain.innerHTML = ''
-        controlPlay.classList.add('control-on')
         containerMain.appendChild(createLyricsContainer)
-
-        const getLyrics = currentMusic.lyrics.split('\n')
+        
+        controlPlay.classList.add('control-on')
 
         getLyrics.map(lyric => {
             if (lyric != '') {
@@ -101,9 +102,6 @@ window.onload = () => {
 
         blockLyrics = createLyricsContainer.querySelectorAll('.block-lyrics')
     }
-
-
-
 
     let current = 0
     let syncMain = []

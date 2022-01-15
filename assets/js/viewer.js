@@ -143,6 +143,7 @@ viewerElement.querySelector('.control-delete').addEventListener('click', () => {
                 setLocal('sync', JSON.stringify(syncLocal))
 
                 closeViewer()
+                window.location.reload(true);
             }
 
             break
