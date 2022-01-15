@@ -1,5 +1,6 @@
 const syncListElement = document.getElementById('sync-list')
 const viewerElement = document.getElementById('viewer-lyrics')
+let timerLyrics;
 
 if (syncLocal.length > 0) {
 
@@ -40,7 +41,10 @@ musicElements.forEach(music => {
         for (let prop in musicsLocal) {
             if (musicsLocal[prop].directory == dataDirectory) {
                 viewerElement.style.display = 'block'
-                titlePage = `${musicsLocal[prop].name} | ${musicsLocal[prop].author}`
+                document.title = `${musicsLocal[prop].name} | ${musicsLocal[prop].author}`
+
+                controlsLocal.play = true
+                setLocal('controls', JSON.stringify(controlsLocal))
 
                 currentMusic.directory = dataDirectory
                 setLocal('currentMusic', JSON.stringify(currentMusic))
@@ -56,8 +60,9 @@ musicElements.forEach(music => {
                         let current = 0
                         let lyrics = syncLocal[prop].fullSync
                         const syncActionElement = document.getElementById('sync-action')
+                        syncActionElement.innerHTML = ''
         
-                        let timerLyrics = setInterval(() => {
+                        timerLyrics = setInterval(() => {
                             if (time.converter(Math.floor(audio.currentTime)) == time.converter(Math.floor(lyrics[current].time))) {
                                 syncActionElement.innerHTML = `<span class="current">${lyrics[current].line}</span>`
                                 current++
@@ -76,15 +81,20 @@ musicElements.forEach(music => {
     })
 })
 
+const controlPlay = viewerElement.querySelector('.control-play')
+const controlFull = viewerElement.querySelector('.control-full')
 
-viewerElement.querySelector('.control-play').addEventListener('click', event => {
-    console.log(event)
+controlPlay.addEventListener('click', () => {
     if (!controlsLocal.play) {
         audio.play()
         controlsLocal.play = true
+
+        controlPlay.innerHTML = '<i class="fas fa-pause"></i>'
     } else {
         audio.pause()
         controlsLocal.play = false
+
+        controlPlay.innerHTML = '<i class="fas fa-play"></i>'
     }
 
     setLocal('controls', JSON.stringify(controlsLocal))
@@ -101,12 +111,16 @@ function getFullscreenElement() {
 function toggleFullscreen() {
     if (getFullscreenElement()) {
         document.exitFullscreen()
+        
+        controlFull.innerHTML = '<i class="fas fa-expand"></i>'
     } else {
         document.documentElement.requestFullscreen()
+
+        controlFull.innerHTML = '<i class="fas fa-compress"></i>'
     }
 }
 
-viewerElement.querySelector('.control-full').addEventListener('click', () => {
+controlFull.addEventListener('click', () => {
     toggleFullscreen()
 })
 
@@ -114,6 +128,8 @@ viewerElement.querySelector('.control-full').addEventListener('click', () => {
 function closeViewer() {
     viewerElement.style.display = 'none'
     resetProcess()
+
+    clearInterval(timerLyrics)
 }
 
 viewerElement.querySelector('.control-delete').addEventListener('click', () => {
@@ -143,6 +159,3 @@ audio.addEventListener('ended', () => {
     closeViewer()
 })
 
-window.addEventListener('beforeunload', () => {
-    resetProcess()
-})

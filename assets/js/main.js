@@ -1,4 +1,3 @@
-let titlePage = document.title
 
 /* Audio */
 const audio = document.querySelector('audio')
@@ -82,14 +81,20 @@ const musicList = [
 setLocal('musics', JSON.stringify(musicList))
 
 function resetProcess() {
-    titlePage = 'Lyrics Sync Music'
+    document.title  = 'Lyrics Sync Music'
 
     source.src = ''
     audio.load()
     audio.pause()
+
+    controlsLocal.play = false
+    setLocal('controls', JSON.stringify(controlsLocal))
 
     currentMusic.directory = ''
     currentMusic.lyrics = ''
     setLocal('currentMusic', JSON.stringify(currentMusic))
 }
 
+window.addEventListener('beforeunload', () => {
+    resetProcess()
+})
