@@ -4,9 +4,6 @@
 const stars = document.getElementById('stars');
 const starsCtx = stars.getContext('2d');
 
-// global variables
-let screen, starsElements, starsParams = { speed: 7, number: 400, extinction: 3 };
-
 // run stars
 setupStars();
 updateStars();
@@ -31,10 +28,10 @@ function Star() {
 
     this.show = function () {
         let x, y, rad, opacity;
-        x = (this.x - screen.c[0]) * (stars.width / this.z);
-        x = x + screen.c[0];
-        y = (this.y - screen.c[1]) * (stars.width / this.z);
-        y = y + screen.c[1];
+        x = (this.x - screenAnime.c[0]) * (stars.width / this.z);
+        x = x + screenAnime.c[0];
+        y = (this.y - screenAnime.c[1]) * (stars.width / this.z);
+        y = y + screenAnime.c[1];
         rad = stars.width / this.z;
         opacity = (rad > starsParams.extinction) ? 1.5 * (2 - rad / starsParams.extinction) : 1;
 
@@ -47,14 +44,14 @@ function Star() {
 
 // setup <canvas>, create all the starts
 function setupStars() {
-    screen = {
+    screenAnime = {
         w: window.innerWidth,
         h: window.innerHeight,
         c: [window.innerWidth * 0.5, window.innerHeight * 0.5]
     };
     window.cancelAnimationFrame(updateStars);
-    stars.width = screen.w;
-    stars.height = screen.h;
+    stars.width = screenAnime.w;
+    stars.height = screenAnime.h;
     starsElements = [];
     for (let i = 0; i < starsParams.number; i++) {
         starsElements[i] = new Star();

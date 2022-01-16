@@ -3,6 +3,9 @@
 const audio = document.querySelector('audio')
 const source = document.querySelector('source')
 
+// Anime Vriables
+let screenAnime, starsElements, starsParams = { speed: 7, number: 400, extinction: 3 };
+
 function setLocal(key, value) {
     localStorage.setItem(key, value)
 }

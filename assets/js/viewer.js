@@ -91,10 +91,14 @@ controlPlay.addEventListener('click', () => {
         audio.play()
         controlsLocal.play = true
 
+        starsParams.speed = 7
+
         controlPlay.innerHTML = '<i class="fas fa-pause"></i>'
     } else {
         audio.pause()
         controlsLocal.play = false
+        
+        starsParams.speed = 0
 
         controlPlay.innerHTML = '<i class="fas fa-play"></i>'
     }
