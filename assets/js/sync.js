@@ -172,6 +172,38 @@ window.onload = () => {
         lyrics() {
             lyricsArea.classList.toggle('on-lyrics-area')
 
+            if (textLyrics.value == '') {
+                let xml = new XMLHttpRequest()
+
+                for (let prop in musicsLocal) {
+                    
+                    if (musicsLocal[prop].directory == currentMusic.directory) {
+                        let urlVagalume = `https://api.vagalume.com.br/search.php?art=${musicsLocal[prop].author}&mus=${musicsLocal[prop].name}`
+
+                        xml.open('GET', urlVagalume, true)
+                        xml.send(null)
+
+                        xml.onload = () => {
+                            if (xml.readyState == 4 && (xml.status >= 200 && xml.status < 400)) {
+                                let resultLyrics = JSON.parse(xml.responseText)
+
+                                console.log(resultLyrics.mus[0].text)
+            
+                                if (resultLyrics.type == 'exact' || resultLyrics.type == 'aprox') {
+                                    textLyrics.value = resultLyrics.mus[0].text
+                                } else {
+                                    textLyrics.value = 'Letra não encontrada!'
+                                }
+                            }
+                        }
+
+                        break
+                    }
+                }
+
+            }
+
+
             lyricsArea.querySelector('#save-lyrics').addEventListener('click', () => {
                 if (textLyrics.value != '') {
                     controls.trash()
