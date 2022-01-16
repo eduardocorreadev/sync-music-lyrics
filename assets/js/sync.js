@@ -19,10 +19,12 @@ window.onload = () => {
     const controlLyrics = document.getElementById('control-lyrics')
     const controlTrash = document.getElementById('control-trash')
 
+    const textLyrics = lyricsArea.querySelector('#lyrics-content')
+
     const iconsPlay = ['<i class="fas fa-play"></i>', '<i class="fas fa-pause"></i>']
+
     const timerElement = document.getElementById('music-timer-span')
 
-    const createLyricsContainer = document.createElement('div')
     let blockLyrics;
 
     function editMenuLeft() {
@@ -81,8 +83,8 @@ window.onload = () => {
     }
 
     function createElementsLyrics() {
-        const getLyrics = currentMusic.lyrics.split('\n')
 
+        const createLyricsContainer = document.createElement('div')
         createLyricsContainer.classList.add('lyrics-container')
 
         containerMain.innerHTML = ''
@@ -90,6 +92,8 @@ window.onload = () => {
         
         controlPlay.classList.add('control-on')
 
+        const getLyrics = currentMusic.lyrics.split('\n')
+        
         getLyrics.map(lyric => {
             if (lyric != '') {
                 createLyricsContainer.innerHTML +=
@@ -140,8 +144,8 @@ window.onload = () => {
         },
         add() {
             if (controlsLocal.play) {
-                createLyricsContainer.querySelectorAll('.block-lyrics')[current].classList.remove('current')
-                createLyricsContainer.querySelectorAll('.block-lyrics')[current].classList.add('done')
+                document.querySelectorAll('.block-lyrics')[current].classList.remove('current')
+                document.querySelectorAll('.block-lyrics')[current].classList.add('done')
 
                 blockLyrics[current].querySelector('span').innerHTML = time.converter(Math.floor(audio.currentTime))
 
@@ -153,7 +157,7 @@ window.onload = () => {
             }
         },
         currentItem() {
-            createLyricsContainer.querySelectorAll('.block-lyrics')[current].classList.add('current')
+            document.querySelectorAll('.block-lyrics')[current].classList.add('current')
         },
         timer() {
             setInterval(() => {
@@ -164,9 +168,9 @@ window.onload = () => {
             lyricsArea.classList.toggle('on-lyrics-area')
 
             lyricsArea.querySelector('#save-lyrics').addEventListener('click', () => {
-                const textLyrics = lyricsArea.querySelector('#lyrics-content')
+                if (textLyrics.value != '') {
+                    controls.trash()
 
-                if (textLyrics.value != 'Letra não encontrada!') {
                     currentMusic.lyrics = textLyrics.value
                     setLocal('currentMusic', JSON.stringify(currentMusic))
 
@@ -182,6 +186,8 @@ window.onload = () => {
             })
         },
         trash() {
+            controls.pause()
+            controls.restart()
             syncMain = []
             current = 0
         }
@@ -206,6 +212,8 @@ window.onload = () => {
                     if (getDirectoryElement == musicsLocal[prop].directory) {
 
                         editMenuLeft() // Menu Lateral esquerdo
+
+                        textLyrics.value = ''
 
                         /* Adicionando em current music a musica atual */
                         currentMusic.directory = musicsLocal[prop].directory

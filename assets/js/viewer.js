@@ -54,6 +54,8 @@ musicElements.forEach(music => {
                 audio.currentTime = 0
                 audio.play() 
 
+                controlPlay.innerHTML = '<i class="fas fa-pause"></i>'
+
                 for (let prop in musicElements) {
                     if (musicElements[prop] == music) {
 
@@ -132,25 +134,25 @@ function closeViewer() {
     clearInterval(timerLyrics)
 }
 
-viewerElement.querySelector('.control-delete').addEventListener('click', () => {
-    audio.pause()
+// viewerElement.querySelector('.control-delete').addEventListener('click', () => {
+//     audio.pause()
 
-    for (let prop in syncLocal) {
-        if (syncLocal[prop].directory == currentMusic.directory) {
+//     for (let prop in syncLocal) {
+//         if (syncLocal[prop].directory == currentMusic.directory) {
 
-            if (confirm("Tem certeza que deseja deletar para sempre este Sync?") == true) {
-                syncLocal.splice(prop, 1)
-                setLocal('sync', JSON.stringify(syncLocal))
+//             if (confirm("Tem certeza que deseja deletar para sempre este Sync?") == true) {
+//                 syncLocal.splice(prop, 1)
+//                 setLocal('sync', JSON.stringify(syncLocal))
 
-                closeViewer()
-                window.location.reload(true);
-            }
+//                 closeViewer()
+//                 window.location.reload(true);
+//             }
 
-            break
-        }
-    }
+//             break
+//         }
+//     }
 
-})
+// })
 
 viewerElement.querySelector('.control-close').addEventListener('click', () => {
     closeViewer()
