@@ -9,6 +9,7 @@ window.onload = () => {
     const buttonMusicList = document.getElementById('button-music-list')
 
     const selectMusic = document.getElementById('select-music')
+    const musicList = document.getElementById('music-list')
     const lyricsArea = document.getElementById('lyrics-area')
     const containerMain = document.getElementById('container-main')
 
@@ -27,16 +28,17 @@ window.onload = () => {
 
     let blockLyrics;
 
-    function editMenuLeft() {
+    function listMusicMenu() {
         buttonMusicList.classList.toggle('active')
         selectMusic.classList.toggle('music-list-on')
     }
 
     /* Open Music List */
-    buttonMusicList.addEventListener('click', editMenuLeft)
+    buttonMusicList.addEventListener('click', listMusicMenu)
+    document.querySelector('.list-music-button').addEventListener('click', listMusicMenu)
+
 
     function createElementsMusics() {
-        const musicList = document.getElementById('music-list')
 
         musicsLocal.map(music => {
             const createMusicItem = `
@@ -48,6 +50,8 @@ window.onload = () => {
             musicList.innerHTML += createMusicItem
         })
     }
+
+
 
     function loadMusic() {
         if (currentMusic.directory != '') {
@@ -106,6 +110,7 @@ window.onload = () => {
 
         blockLyrics = createLyricsContainer.querySelectorAll('.block-lyrics')
     }
+
 
     let current = 0
     let syncMain = []
@@ -211,7 +216,7 @@ window.onload = () => {
                     // Verificar se a música que foi clicada existe!
                     if (getDirectoryElement == musicsLocal[prop].directory) {
 
-                        editMenuLeft() // Menu Lateral esquerdo
+                        listMusicMenu() // Menu Lateral esquerdo
 
                         textLyrics.value = ''
 
@@ -243,9 +248,8 @@ window.onload = () => {
     controlPlay.addEventListener('click', controls.play)
     controlRestart.addEventListener('click', controls.restart)
     controlAdd.addEventListener('click', controls.add)
-    controlLyrics.addEventListener('click', controls.lyrics) // Show Lyrics
+    controlLyrics.addEventListener('click', controls.lyrics)
     controlTrash.addEventListener('click', controls.trash)
-
 
     audio.addEventListener('ended', controls.pause)
     window.addEventListener('beforeunload', controls.pause)

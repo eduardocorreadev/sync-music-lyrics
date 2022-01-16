@@ -129,6 +129,7 @@ controlFull.addEventListener('click', () => {
 
 function closeViewer() {
     viewerElement.style.display = 'none'
+
     resetProcess()
 
     clearInterval(timerLyrics)
