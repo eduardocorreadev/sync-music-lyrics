@@ -435,14 +435,6 @@ header.header .container .music-timer span {
     font-size: var(--fontSize02);
 }
 
-header.header .container .music-timer span span.current-time {
-    color: var(--Green);
-}
-
-header.header .container .music-timer span span.total-time {
-    color: var(--Red);
-}
-
 
 /* Footer */
 footer.controls {
