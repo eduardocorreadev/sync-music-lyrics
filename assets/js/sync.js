@@ -124,7 +124,6 @@ window.onload = () => {
 
                     controlPlay.innerHTML = iconsPlay[1]
                     controlRestart.classList.add('control-on')
-                    controlTrash.classList.add('control-trash')
 
                     controlsLocal.play = true
                     setLocal('controls', JSON.stringify(controlsLocal))
@@ -155,8 +154,8 @@ window.onload = () => {
         },
         add() {
             if (controlsLocal.play) {
-                blockLyrics[current].classList.remove('current')
                 blockLyrics[current].classList.add('done')
+                blockLyrics[current].classList.remove('current')
 
                 blockLyrics[current].querySelector('span').innerHTML = time.converter(Math.floor(audio.currentTime))
 
@@ -168,7 +167,14 @@ window.onload = () => {
 
         },
         currentItem() {
-            document.querySelectorAll('.block-lyrics')[current].classList.add('current')
+            blockLyrics[current].classList.add('current')
+
+            if (current > 0) {
+                controlTrash.classList.add('control-trash')
+            } else {
+                controlTrash.classList.remove('control-trash')
+            }
+
         },
         timer() {
             setInterval(() => {
@@ -213,10 +219,7 @@ window.onload = () => {
             }
 
             lyricsArea.querySelector('#save-lyrics').addEventListener('click', () => {
-
-                // ARRUMMAR DEPOIS
-                if (!(textLyrics.value == 'Letra não encontrada!') || (textLyrics.value == 'Procurando Letra...') || (textLyrics.value == '')) {
-                    controls.trash()
+                if (textLyrics.value != '' && textLyrics.value != 'Procurando Letra...' && textLyrics.value != 'Letra não encontrada!') {
 
                     currentMusic.lyrics = textLyrics.value
                     setLocal('currentMusic', JSON.stringify(currentMusic))
@@ -233,23 +236,19 @@ window.onload = () => {
             })
         },
         trash() {
+            syncMain = []
+            current = 0
 
-            if (current > 0) {
-                syncMain = []
-                current = 0
+            controls.restart()
+            controls.pause()
 
-                controls.restart()
-                controls.pause()
-
-                blockLyrics.forEach(element => {
-                    if (element.className.split(' ')[1] == 'done' || element.className.split(' ')[1] == 'current') {
-                        element.classList.remove('done')
-                        element.classList.remove('current')
-                    }
-                });
-
-            }
-        
+            blockLyrics.forEach(element => {
+                if (element.className.split(' ')[1] == 'done' || element.className.split(' ')[1] == 'current') {
+                    element.classList.remove('done')
+                    element.classList.remove('current')
+                }
+            });
+    
         }
     }
 
