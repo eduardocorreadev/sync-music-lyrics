@@ -11,7 +11,7 @@ if (syncLocal.length > 0) {
             if (musicsLocal[prop].directory == item.directory) {
 
                 syncListElement.innerHTML +=
-                `<div class="music" data-directory="${musicsLocal[prop].directory}">
+                `<div class="music" data-directory="${musicsLocal[prop].directory}" draggable="true">
                     <div class="details">
                         <h3>${musicsLocal[prop].name}</h3>
                         <p>${musicsLocal[prop].author}</p>
@@ -79,6 +79,30 @@ musicElements.forEach(music => {
                 break
             }
         }
+
+    })
+
+    const thashSyncElement = document.getElementById('thash-sync')
+
+    music.addEventListener('dragstart', () => {
+        thashSyncElement.style.display = 'block'
+    })
+
+    music.addEventListener('dragend', () => {
+        thashSyncElement.style.display = 'none'
+    })
+
+    thashSyncElement.addEventListener('dragover', event => {
+        event.preventDefault()
+        thashSyncElement.classList.add('on-drag-over')
+    })
+
+    thashSyncElement.addEventListener('drop', event => {
+        event.preventDefault()
+
+        thashSyncElement.style.display = 'none'
+
+        console.log(event)
 
     })
 })

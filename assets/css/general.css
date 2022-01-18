@@ -105,17 +105,28 @@ header.header-main .container img {
     cursor: pointer;
 }
 
-header.header-main .container a {
-    width: 100%;
-    max-width: 200px;
-    height: 40px;
+header.header-main .container .right-menu {
+    display: flex;
+    align-items: center;
+}
+
+header.header-main .container .right-menu i {
+    color: var(--Comment);
+    font-size: 3em;
+    margin: 0 30px;
+    display: none;
+}
+
+header.header-main .container .right-menu i.on-drag-over {
+    color: var(--Red);
+}
+
+header.header-main .container .right-menu a {
     color: var(--Foreground);
     background: var(--Comment);
     font-size: var(--fontSize01);
     font-weight: bold;
-    line-height: 40px;
-    text-align: center;
-    display: block;
+    padding: 10px;
 }
 
 /* Main Page */

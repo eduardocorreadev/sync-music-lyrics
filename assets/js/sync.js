@@ -141,14 +141,12 @@ window.onload = () => {
             audio.pause()
 
             controlPlay.innerHTML = iconsPlay[0]
-            controlRestart.classList.remove('control-on')
-            controlTrash.classList.remove('control-trash')
 
             controlsLocal.play = false
             setLocal('controls', JSON.stringify(controlsLocal))
         },
         restart() {
-            if (controlsLocal.play) {
+            if (audio.currentTime > 0) {
                 audio.currentTime = 0
             }
         },
@@ -164,7 +162,6 @@ window.onload = () => {
                 current++
                 controls.currentItem()
             }
-
         },
         currentItem() {
             blockLyrics[current].classList.add('current')
@@ -215,8 +212,8 @@ window.onload = () => {
                         }
                     } 
                 }, 2000);
-
             }
+            
 
             lyricsArea.querySelector('#save-lyrics').addEventListener('click', () => {
                 if (textLyrics.value != '' && textLyrics.value != 'Procurando Letra...' && textLyrics.value != 'Letra não encontrada!') {
