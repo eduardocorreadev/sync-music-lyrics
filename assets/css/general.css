@@ -105,23 +105,7 @@ header.header-main .container img {
     cursor: pointer;
 }
 
-header.header-main .container .right-menu {
-    display: flex;
-    align-items: center;
-}
-
-header.header-main .container .right-menu i {
-    color: var(--Comment);
-    font-size: 3em;
-    margin: 0 30px;
-    display: none;
-}
-
-header.header-main .container .right-menu i.on-drag-over {
-    color: var(--Red);
-}
-
-header.header-main .container .right-menu a {
+header.header-main .container a {
     color: var(--Foreground);
     background: var(--Comment);
     font-size: var(--fontSize01);

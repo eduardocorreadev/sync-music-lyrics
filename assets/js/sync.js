@@ -27,6 +27,8 @@ window.onload = () => {
     const timerElement = document.getElementById('music-timer-span')
 
     let blockLyrics;
+    let current = 0
+    let syncMain = []
 
     function listMusicMenu() {
         buttonMusicList.classList.toggle('active')
@@ -93,11 +95,11 @@ window.onload = () => {
 
         containerMain.innerHTML = ''
         containerMain.appendChild(createLyricsContainer)
-        
+
         controlPlay.classList.add('control-on')
 
         const getLyrics = currentMusic.lyrics.split('\n')
-        
+
         getLyrics.map(lyric => {
             if (lyric != '') {
                 createLyricsContainer.innerHTML +=
@@ -111,9 +113,6 @@ window.onload = () => {
         blockLyrics = createLyricsContainer.querySelectorAll('.block-lyrics')
     }
 
-
-    let current = 0
-    let syncMain = []
 
     const controls = {
         play() {
@@ -189,17 +188,17 @@ window.onload = () => {
                     let xml = new XMLHttpRequest()
 
                     for (let prop in musicsLocal) {
-                        
+
                         if (musicsLocal[prop].directory == currentMusic.directory) {
                             let urlVagalume = `https://api.vagalume.com.br/search.php?art=${musicsLocal[prop].author}&mus=${musicsLocal[prop].name}`
-    
+
                             xml.open('GET', urlVagalume, true)
                             xml.send(null)
-    
+
                             xml.onload = () => {
                                 if (xml.readyState == 4 && (xml.status >= 200 && xml.status < 400)) {
                                     let resultLyrics = JSON.parse(xml.responseText)
-                
+
                                     if (resultLyrics.type == 'exact' || resultLyrics.type == 'aprox') {
                                         textLyrics.value = resultLyrics.mus[0].text
                                     } else {
@@ -207,13 +206,12 @@ window.onload = () => {
                                     }
                                 }
                             }
-    
+
                             break
                         }
-                    } 
+                    }
                 }, 2000);
             }
-            
 
             lyricsArea.querySelector('#save-lyrics').addEventListener('click', () => {
                 if (textLyrics.value != '' && textLyrics.value != 'Procurando Letra...' && textLyrics.value != 'Letra não encontrada!') {
@@ -233,19 +231,17 @@ window.onload = () => {
             })
         },
         trash() {
-            syncMain = []
-            current = 0
+            if (current > 0) {
+                syncMain = []
+                current = 0
 
-            controls.restart()
-            controls.pause()
+                controls.restart()
+                controls.pause()
 
-            blockLyrics.forEach(element => {
-                if (element.className.split(' ')[1] == 'done' || element.className.split(' ')[1] == 'current') {
-                    element.classList.remove('done')
-                    element.classList.remove('current')
-                }
-            });
-    
+                createElementsLyrics()
+
+                controlTrash.classList.remove('control-trash')
+            }
         }
     }
 
@@ -261,6 +257,9 @@ window.onload = () => {
             music.addEventListener('click', () => {
                 const getDirectoryElement = music.getAttribute('data-directory') // Directory presente no data do elemento
                 controls.pause()
+
+                controlPlay.classList.remove('control-on')
+                controlRestart.classList.remove('control-on')
 
                 for (prop in musicsLocal) {
 

@@ -11,14 +11,14 @@ if (syncLocal.length > 0) {
             if (musicsLocal[prop].directory == item.directory) {
 
                 syncListElement.innerHTML +=
-                `<div class="music" data-directory="${musicsLocal[prop].directory}" draggable="true">
+                    `<div class="music" data-directory="${musicsLocal[prop].directory}">
                     <div class="details">
                         <h3>${musicsLocal[prop].name}</h3>
                         <p>${musicsLocal[prop].author}</p>
                     </div>
                     <span>${time.converter(Math.floor(item.time))}</span>
                 </div>`
-                
+
             }
         }
     })
@@ -52,7 +52,7 @@ musicElements.forEach(music => {
                 source.src = 'musics/' + musicsLocal[prop].directory
                 audio.load()
                 audio.currentTime = 0
-                audio.play() 
+                audio.play()
 
                 controlPlay.innerHTML = '<i class="fas fa-pause"></i>'
 
@@ -63,13 +63,13 @@ musicElements.forEach(music => {
                         let lyrics = syncLocal[prop].fullSync
                         const syncActionElement = document.getElementById('sync-action')
                         syncActionElement.innerHTML = ''
-        
+
                         timerLyrics = setInterval(() => {
                             if (time.converter(Math.floor(audio.currentTime)) == time.converter(Math.floor(lyrics[current].time))) {
                                 syncActionElement.innerHTML = `<span class="current">${lyrics[current].line}</span>`
                                 current++
                             }
-        
+
                         }, 100);
 
                         break
@@ -82,54 +82,47 @@ musicElements.forEach(music => {
 
     })
 
-    const thashSyncElement = document.getElementById('thash-sync')
-
-    music.addEventListener('dragstart', () => {
-        thashSyncElement.style.display = 'block'
-    })
-
-    music.addEventListener('dragend', () => {
-        thashSyncElement.style.display = 'none'
-    })
-
-    thashSyncElement.addEventListener('dragover', event => {
-        event.preventDefault()
-        thashSyncElement.classList.add('on-drag-over')
-    })
-
-    thashSyncElement.addEventListener('drop', event => {
-        event.preventDefault()
-
-        thashSyncElement.style.display = 'none'
-
-        console.log(event)
-
-    })
 })
 
 const controlPlay = viewerElement.querySelector('.control-play')
 const controlFull = viewerElement.querySelector('.control-full')
+const controlTrash = viewerElement.querySelector('.control-trash')
+const controlClose = viewerElement.querySelector('.control-close')
 
-controlPlay.addEventListener('click', () => {
-    if (!controlsLocal.play) {
+function resetProcess() {
+    document.title  = 'Lyrics Sync Music'
+
+    source.src = ''
+    audio.load()
+    audio.pause()
+
+    controlsLocal.play = false
+    setLocal('controls', JSON.stringify(controlsLocal))
+
+    currentMusic.directory = ''
+    currentMusic.lyrics = ''
+    setLocal('currentMusic', JSON.stringify(currentMusic))
+}
+
+function playState(bol) {
+    if (bol) {
+        audio.pause()
+        controlsLocal.play = false
+
+        starsParams.speed = 0
+
+        controlPlay.innerHTML = '<i class="fas fa-play"></i>'
+    } else {
         audio.play()
         controlsLocal.play = true
 
         starsParams.speed = 7
 
         controlPlay.innerHTML = '<i class="fas fa-pause"></i>'
-    } else {
-        audio.pause()
-        controlsLocal.play = false
-        
-        starsParams.speed = 0
-
-        controlPlay.innerHTML = '<i class="fas fa-play"></i>'
     }
 
     setLocal('controls', JSON.stringify(controlsLocal))
-})
-
+}
 
 function getFullscreenElement() {
     return document.fullscreenElement
@@ -141,7 +134,7 @@ function getFullscreenElement() {
 function toggleFullscreen() {
     if (getFullscreenElement()) {
         document.exitFullscreen()
-        
+
         controlFull.innerHTML = '<i class="fas fa-expand"></i>'
     } else {
         document.documentElement.requestFullscreen()
@@ -150,44 +143,38 @@ function toggleFullscreen() {
     }
 }
 
-controlFull.addEventListener('click', () => {
-    toggleFullscreen()
-})
-
-
 function closeViewer() {
     viewerElement.style.display = 'none'
-
     resetProcess()
-
     clearInterval(timerLyrics)
 }
 
-// viewerElement.querySelector('.control-delete').addEventListener('click', () => {
-//     audio.pause()
-
-//     for (let prop in syncLocal) {
-//         if (syncLocal[prop].directory == currentMusic.directory) {
-
-//             if (confirm("Tem certeza que deseja deletar para sempre este Sync?") == true) {
-//                 syncLocal.splice(prop, 1)
-//                 setLocal('sync', JSON.stringify(syncLocal))
-
-//                 closeViewer()
-//                 window.location.reload(true);
-//             }
-
-//             break
-//         }
-//     }
-
-// })
-
-viewerElement.querySelector('.control-close').addEventListener('click', () => {
-    closeViewer()
+controlPlay.addEventListener('click', () => {
+    playState(controlsLocal.play)
 })
 
-audio.addEventListener('ended', () => {
-    closeViewer()
+controlTrash.addEventListener('click', () => {
+    playState(true)
+
+    for (let prop in syncLocal) {
+        if (syncLocal[prop].directory == currentMusic.directory) {
+
+            if (confirm("Tem certeza que deseja deletar para sempre este Sync?") == true) {
+                syncLocal.splice(prop, 1)
+                setLocal('sync', JSON.stringify(syncLocal))
+
+                closeViewer()
+                window.location.reload(true);
+            } else {
+                playState(false)
+            }
+
+            break
+        }
+    } 
 })
 
+controlFull.addEventListener('click', toggleFullscreen)
+controlClose.addEventListener('click', closeViewer)
+audio.addEventListener('ended', closeViewer)
+window.addEventListener('beforeunload', resetProcess)

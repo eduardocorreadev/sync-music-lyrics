@@ -19,7 +19,7 @@ if (!getLocal('currentMusic')) {
 }
 
 if (!getLocal('controls')) {
-    setLocal('controls', JSON.stringify({ play: false }))
+    setLocal('controls', JSON.stringify({ RemotePlayback: false }))
 }
 
 if (!getLocal('sync')) {
@@ -78,26 +78,12 @@ const musicList = [
         name: "Tempos Modernos",
         author: "Make U Sweat, Lulu Santos",
         directory: "Make U Sweat, Lulu Santos - Tempos Modernos.mp3"
+    },
+    {
+        name: "Já Que Me Ensinou a Beber",
+        author: "Os Barões da Pisadinha",
+        directory: "Os Barões da Pisadinha - Já Que Me Ensinou a Beber.mp3"
     }
 ]
 
 setLocal('musics', JSON.stringify(musicList))
-
-function resetProcess() {
-    document.title  = 'Lyrics Sync Music'
-
-    source.src = ''
-    audio.load()
-    audio.pause()
-
-    controlsLocal.play = false
-    setLocal('controls', JSON.stringify(controlsLocal))
-
-    currentMusic.directory = ''
-    currentMusic.lyrics = ''
-    setLocal('currentMusic', JSON.stringify(currentMusic))
-}
-
-window.addEventListener('beforeunload', () => {
-    resetProcess()
-})
