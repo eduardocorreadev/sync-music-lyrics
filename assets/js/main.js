@@ -1,36 +1,14 @@
+/* ============================================ */
+/*  Main file that will help all others work.   */
+/*  By: ucarlos1001                             */
+/* ============================================ */
 
-/* Audio */
-const audio = document.querySelector('audio')
-const source = document.querySelector('source')
+console.log('❤️️') // Thanks :)
 
-// Anime Vriables
-let screenAnime, starsElements, starsParams = { speed: 7, number: 400, extinction: 3 };
+const audio = document.querySelector('audio') // Audio Element
+const source = document.querySelector('source') // Source Element
 
-function setLocal(key, value) {
-    localStorage.setItem(key, value)
-}
-
-function getLocal(key) {
-    return localStorage.getItem(key)
-}
-
-if (!getLocal('currentMusic')) {
-    setLocal('currentMusic', JSON.stringify({ lyrics: "", directory: "" }))
-}
-
-if (!getLocal('controls')) {
-    setLocal('controls', JSON.stringify({ RemotePlayback: false }))
-}
-
-if (!getLocal('sync')) {
-    setLocal('sync', JSON.stringify([]))
-}
-
-let musicsLocal = JSON.parse(getLocal('musics'))
-let currentMusic = JSON.parse(getLocal('currentMusic'))
-let controlsLocal = JSON.parse(getLocal('controls'))
-let syncLocal = JSON.parse(getLocal('sync'))
-
+/* Functions to convert and show time */
 const time = {
     converter(time) {
         let m = Math.floor(time / 60)
@@ -43,6 +21,47 @@ const time = {
     }
 }
 
+/* 
+   Anime.js variables for background animation. 
+   Speed, number and extinction.
+*/
+let screenAnime, starsElements, starsParams = { speed: 7, number: 400, extinction: 3 };
+
+// Function to set item to localstorage
+function setLocal(key, value) {
+    localStorage.setItem(key, value)
+}
+
+// Function to get item from localstorage
+function getLocal(key) {
+    return localStorage.getItem(key)
+}
+
+
+// Check if items are present in localstorage and if not create.
+/* CurrentMusic - Item to store the current song being played. */
+if (!getLocal('currentMusic')) {
+    setLocal('currentMusic', JSON.stringify({ lyrics: "", directory: "" }))
+}
+
+/* Controls - Item to store play state */
+if (!getLocal('controls')) {
+    setLocal('controls', JSON.stringify({ RemotePlayback: false }))
+}
+
+/* Sync - Item to store completed syncs. */
+if (!getLocal('sync')) {
+    setLocal('sync', JSON.stringify([]))
+}
+
+
+// Getting the items present in localstorage
+let musicsLocal = JSON.parse(getLocal('musics')) // Getting all songs
+let currentMusic = JSON.parse(getLocal('currentMusic')) // Getting currentMusic
+let controlsLocal = JSON.parse(getLocal('controls')) // Getting Control State
+let syncLocal = JSON.parse(getLocal('sync')) // Getting Completed Syncs
+
+// Adding all songs to an object
 const musicList = [
     {
         name: "7 Rings",
@@ -83,7 +102,13 @@ const musicList = [
         name: "Já Que Me Ensinou a Beber",
         author: "Os Barões da Pisadinha",
         directory: "Os Barões da Pisadinha - Já Que Me Ensinou a Beber.mp3"
+    },
+    {
+        name: "Jorge & Mateus",
+        author: "Seu Astral",
+        directory: "Jorge & Mateus - Seu Astral.mp3"
     }
 ]
 
-setLocal('musics', JSON.stringify(musicList))
+// Adding the object to an item in localstorage
+setLocal('musics', JSON.stringify(musicList)) 

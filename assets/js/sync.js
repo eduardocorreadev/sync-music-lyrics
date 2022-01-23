@@ -1,47 +1,66 @@
+/* ============================================ */
+/* File that will do all the synchronization of */
+/* the song and the lyrics.                     */
+/* ============================================ */
+
+
+/* 
+    Tudo que está dentro de window.onload será corregado 
+    depois que toda a página for carregada.
+*/
 window.onload = () => {
 
-    const headerMain = document.getElementById('header-main')
-    const footerMain = document.getElementById('footer-main')
+    // Header and Footer
+    const headerMain = document.getElementById('header-main') // Header Main Element
+    const footerMain = document.getElementById('footer-main') // Footer Main Element
+    const timerElement = document.getElementById('music-timer-span') // Timer Element - Header
 
     /* Menu Left Buttons */
-    const buttonCheck = document.getElementById('button-check')
-    const buttonCancel = document.getElementById('button-cancel')
-    const buttonMusicList = document.getElementById('button-music-list')
+    const buttonCheck = document.getElementById('button-check') // Button Check
+    const buttonCancel = document.getElementById('button-cancel') // Button Cancel
+    const buttonMusicList = document.getElementById('button-music-list') // Button Music List
 
-    const selectMusic = document.getElementById('select-music')
-    const musicList = document.getElementById('music-list')
-    const lyricsArea = document.getElementById('lyrics-area')
+    /* Select Music Area */
+    const selectMusic = document.getElementById('select-music') // Área para selecionar uma música
+    const musicList = document.getElementById('music-list') // Music List
+
+    // Lyrics Area and content
+    const lyricsArea = document.getElementById('lyrics-area') // Lyrics Area
+    const textLyrics = lyricsArea.querySelector('#lyrics-content') // Content of the textarea that has the lyrics of the song
+
+    // Container Main Sync
     const containerMain = document.getElementById('container-main')
 
     // Controls Buttons
-    const controlPlay = document.getElementById('control-play')
-    const controlRestart = document.getElementById('control-restart')
-    const controlAdd = document.getElementById('control-add')
-    const controlLyrics = document.getElementById('control-lyrics')
-    const controlTrash = document.getElementById('control-trash')
+    const controlPlay = document.getElementById('control-play') // Control Play
+    const controlRestart = document.getElementById('control-restart') // Control Restart
+    const controlAdd = document.getElementById('control-add') // Control Add (Important)
+    const controlLyrics = document.getElementById('control-lyrics') // Control Show Lyrics
+    const controlTrash = document.getElementById('control-trash') // Control Trash
 
-    const textLyrics = lyricsArea.querySelector('#lyrics-content')
+    const iconsPlay = ['<i class="fas fa-play"></i>', '<i class="fas fa-pause"></i>'] // Play button status icons
 
-    const iconsPlay = ['<i class="fas fa-play"></i>', '<i class="fas fa-pause"></i>']
+    let blockLyrics // Variavel para armazenar todos os items de letras. 
+    let current = 0 // Variavel para armazenar a posição atual do item de letra.
+    let syncMain = [] // Array para armazenar toda sincronazação.
 
-    const timerElement = document.getElementById('music-timer-span')
-
-    let blockLyrics;
-    let current = 0
-    let syncMain = []
-
+    // Função para adicionar e remover a lista de música.
     function listMusicMenu() {
         buttonMusicList.classList.toggle('active')
         selectMusic.classList.toggle('music-list-on')
     }
 
     /* Open Music List */
-    buttonMusicList.addEventListener('click', listMusicMenu)
-    document.querySelector('.list-music-button').addEventListener('click', listMusicMenu)
+    buttonMusicList.addEventListener('click', listMusicMenu) // Button in navbar
+    document.querySelector('.list-music-button').addEventListener('click', listMusicMenu) // Button of no music selected
 
+    /* 
+       Função que irá criar todos os elementos da lista de músicas.
+       Irá percorrer todo o array de música e adicinar na lista vistual.
+       [data-directory] para armazenar o diretorio onde a música está presente; 
 
+    */
     function createElementsMusics() {
-
         musicsLocal.map(music => {
             const createMusicItem = `
             <div class="music" data-directory="${music.directory}">
@@ -53,41 +72,10 @@ window.onload = () => {
         })
     }
 
+    /* 
+      Função que irá criar todos os elementos de letra e exibir na tela. 
 
-
-    function loadMusic() {
-        if (currentMusic.directory != '') {
-
-            for (let prop in musicsLocal) {
-                if (currentMusic.directory == musicsLocal[prop].directory) {
-                    source.src = 'musics/' + musicsLocal[prop].directory
-                    audio.load()
-
-                    document.getElementById('name-music-header').innerHTML = musicsLocal[prop].name
-                    document.getElementById('author-music-header').innerHTML = musicsLocal[prop].author
-                    headerMain.style.display = 'block'
-                    footerMain.style.display = 'block'
-                    containerMain.innerHTML = ''
-
-                    if (currentMusic.lyrics) {
-                        createElementsLyrics()
-                    } else {
-                        containerMain.innerHTML +=
-                            `<div class="msg-music">
-                            <img src="assets/images/logo.png">
-                            <h3>Nenhuma letra foi encontrada!</h3>
-                            <p>Clique no ícone piscando no player para adicionar uma letra!</p>
-                            </div>`
-
-                        controlLyrics.classList.add('no-lyrics')
-                    }
-
-                    break
-                }
-            }
-        }
-    }
-
+    */
     function createElementsLyrics() {
 
         const createLyricsContainer = document.createElement('div')
@@ -114,6 +102,18 @@ window.onload = () => {
     }
 
 
+    /* 
+       Obj que irá armazenar todas funções dos controles da sincronização.
+
+       - play: Ao clicar no botão play será verificado se existe o play ativo ou não,
+       se existir, irá dar pause na música, se não irá dar start na música.
+
+       - pause: Pausa a música e altera o icone do botão.
+
+       - restart: Para dar restart na música.
+
+       - add: 
+    */
     const controls = {
         play() {
 
@@ -160,6 +160,16 @@ window.onload = () => {
 
                 current++
                 controls.currentItem()
+
+                /*
+                
+                    Irá verificar se a música está rodando antes de começar.
+                    A variavel current que foi setado lá em cima será usado aqui para aramazenar a posição atual da letra.
+                    
+                    Será adiconado a linha da letra na variavel syncMain também criada lá em cima.
+
+                    currentItem() irá adicionar a posição atual da letra visualmente.
+                */
             }
         },
         currentItem() {
@@ -283,7 +293,37 @@ window.onload = () => {
                         containerMain.innerHTML = `<div class="loading"><i class="fas fa-sync-alt"></i></div>` // Loading
 
                         setTimeout(() => {
-                            loadMusic()
+                            if (currentMusic.directory != '') {
+
+                                for (let prop in musicsLocal) {
+                                    if (currentMusic.directory == musicsLocal[prop].directory) {
+                                        source.src = 'musics/' + musicsLocal[prop].directory
+                                        audio.load()
+
+                                        document.getElementById('name-music-header').innerHTML = musicsLocal[prop].name
+                                        document.getElementById('author-music-header').innerHTML = musicsLocal[prop].author
+                                        headerMain.style.display = 'block'
+                                        footerMain.style.display = 'block'
+                                        containerMain.innerHTML = ''
+
+                                        if (currentMusic.lyrics) {
+                                            createElementsLyrics()
+                                        } else {
+                                            containerMain.innerHTML +=
+                                                `<div class="msg-music">
+                                                <img src="assets/images/logo.png">
+                                                <h3>Nenhuma letra foi encontrada!</h3>
+                                                <p>Clique no ícone piscando no player para adicionar uma letra!</p>
+                                                </div>`
+
+                                            controlLyrics.classList.add('no-lyrics')
+                                        }
+
+                                        break
+                                    }
+                                }
+                            }
+
                         }, 2000);
 
                         break
@@ -309,12 +349,27 @@ window.onload = () => {
 
             if (confirm("Tem certeza que está tudo correto e deseja salvar este Sync?") == true) {
 
-                const getSyncLocal = JSON.parse(getLocal('sync'))
-                getSyncLocal.push({ directory: currentMusic.directory, time: audio.duration, fullSync: syncMain })
+                function saveSync() {
+                    syncLocal.push({ directory: currentMusic.directory, time: audio.duration, fullSync: syncMain })
+                    setLocal('sync', JSON.stringify(syncLocal))
+                }
 
-                setLocal('sync', JSON.stringify(getSyncLocal))
+                saveSync()
 
-                window.location.href = 'index.html'
+                // for (let prop in syncLocal) {
+
+                //     if (syncLocal[prop].directory == currentMusic.directory) {
+                //         if (confirm("Error! Já existe um Sync com essa música. Deseja substituir a existente por este Sync?") == true) {
+                //             syncLocal.splice(prop, 1)
+                //             saveSync()
+
+                //             break
+                //         }
+
+                //         saveSync()
+                //         window.location.href = 'index.html'
+                //     }
+                // }
             }
 
         } else {

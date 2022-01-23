@@ -1,4 +1,4 @@
-// Desenvolvido por: https://codepen.io/ksenia-k/
+// By: https://codepen.io/ksenia-k/
 
 // DOM selectors
 const stars = document.getElementById('stars');
