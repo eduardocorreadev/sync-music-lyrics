@@ -4,7 +4,6 @@
 
 #### Quem nunca assistiu aqueles vídeos no Youtube de música com letra sincronizada? Então por que não colocar aquela mesma ideia em uma página web? Sendo possível sincronizar qual música com qualquer letra. (Manual)
 
-<br>
 
 ### Vídeos Demonstração:
 #### Sincronização Manual
