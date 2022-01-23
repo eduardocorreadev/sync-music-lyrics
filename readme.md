@@ -13,8 +13,6 @@
 #### Resultado
 [![Watch the video](/assets/gifs/viewer.gif)](https://youtu.be/gkDiEDdIXfY)
 
-<br>
-
 #### Como clonar o repositório em seu computador: 
 ``` 
 git clone https://github.com/ucarlos1001/sync-music-lyrics.git
