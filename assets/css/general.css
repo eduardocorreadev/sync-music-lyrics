@@ -660,7 +660,7 @@ footer.controls ul li.no-lyrics i {
     color: var(--Orange);
 }
 
-#viewer-lyrics footer.footer-viewer ul li.control-delete:hover {
+#viewer-lyrics footer.footer-viewer ul li.control-trash:hover {
     color: var(--Red);
 }
 

@@ -242,15 +242,17 @@ window.onload = () => {
         },
         trash() {
             if (current > 0) {
-                syncMain = []
-                current = 0
-
-                controls.restart()
-                controls.pause()
-
-                createElementsLyrics()
-
-                controlTrash.classList.remove('control-trash')
+                if (confirm("Tem certeza que deseja deletar todo seu Sync e recomeçar?") == true) {
+                    syncMain = []
+                    current = 0
+    
+                    controls.restart()
+                    controls.pause()
+    
+                    createElementsLyrics()
+    
+                    controlTrash.classList.remove('control-trash')
+                }
             }
         }
     }
@@ -352,24 +354,22 @@ window.onload = () => {
                 function saveSync() {
                     syncLocal.push({ directory: currentMusic.directory, time: audio.duration, fullSync: syncMain })
                     setLocal('sync', JSON.stringify(syncLocal))
+
+                    window.location.href = 'index.html'
+                }
+
+                for (let prop in syncLocal) {
+
+                    if (syncLocal[prop].directory === currentMusic.directory) {
+                        if (confirm("Error! Já existe um Sync com essa música. Deseja substituir a existente por este Sync?") == true) {
+                            syncLocal.splice(prop, 1)
+                            break
+                        }
+
+                    }
                 }
 
                 saveSync()
-
-                // for (let prop in syncLocal) {
-
-                //     if (syncLocal[prop].directory == currentMusic.directory) {
-                //         if (confirm("Error! Já existe um Sync com essa música. Deseja substituir a existente por este Sync?") == true) {
-                //             syncLocal.splice(prop, 1)
-                //             saveSync()
-
-                //             break
-                //         }
-
-                //         saveSync()
-                //         window.location.href = 'index.html'
-                //     }
-                // }
             }
 
         } else {

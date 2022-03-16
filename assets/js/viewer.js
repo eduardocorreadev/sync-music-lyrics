@@ -62,9 +62,11 @@ musicElements.forEach(music => {
                         let current = 0
                         let lyrics = syncLocal[prop].fullSync
                         const syncActionElement = document.getElementById('sync-action')
+
                         syncActionElement.innerHTML = ''
 
                         timerLyrics = setInterval(() => {
+
                             if (time.converter(Math.floor(audio.currentTime)) == time.converter(Math.floor(lyrics[current].time))) {
                                 syncActionElement.innerHTML = `<span class="current">${lyrics[current].line}</span>`
                                 current++
@@ -90,7 +92,7 @@ const controlTrash = viewerElement.querySelector('.control-trash')
 const controlClose = viewerElement.querySelector('.control-close')
 
 function resetProcess() {
-    document.title  = 'Lyrics Sync Music'
+    document.title = 'Lyrics Sync Music'
 
     source.src = ''
     audio.load()
@@ -171,7 +173,7 @@ controlTrash.addEventListener('click', () => {
 
             break
         }
-    } 
+    }
 })
 
 controlFull.addEventListener('click', toggleFullscreen)
