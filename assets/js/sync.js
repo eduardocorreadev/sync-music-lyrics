@@ -230,6 +230,9 @@ window.onload = () => {
                     setLocal('currentMusic', JSON.stringify(currentMusic))
 
                     createElementsLyrics()
+                    
+                    controls.pause()
+                    controls.restart()
 
                     controlLyrics.classList.remove('no-lyrics')
                     lyricsArea.classList.remove('on-lyrics-area')
@@ -245,12 +248,12 @@ window.onload = () => {
                 if (confirm("Tem certeza que deseja deletar todo seu Sync e recomeçar?") == true) {
                     syncMain = []
                     current = 0
-    
+
                     controls.restart()
                     controls.pause()
-    
+
                     createElementsLyrics()
-    
+
                     controlTrash.classList.remove('control-trash')
                 }
             }
@@ -349,27 +352,33 @@ window.onload = () => {
     buttonCheck.addEventListener('click', () => {
         if (syncMain.length > 0) {
 
-            if (confirm("Tem certeza que está tudo correto e deseja salvar este Sync?") == true) {
+            if (blockLyrics.length == current) {
 
-                function saveSync() {
-                    syncLocal.push({ directory: currentMusic.directory, time: audio.duration, fullSync: syncMain })
-                    setLocal('sync', JSON.stringify(syncLocal))
+                if (confirm("Tem certeza que está tudo correto e deseja salvar este Sync?") == true) {
 
-                    window.location.href = 'index.html'
-                }
+                    function saveSync() {
+                        syncLocal.push({ directory: currentMusic.directory, time: audio.duration, fullSync: syncMain })
+                        setLocal('sync', JSON.stringify(syncLocal))
 
-                for (let prop in syncLocal) {
-
-                    if (syncLocal[prop].directory === currentMusic.directory) {
-                        if (confirm("Error! Já existe um Sync com essa música. Deseja substituir a existente por este Sync?") == true) {
-                            syncLocal.splice(prop, 1)
-                            break
-                        }
-
+                        window.location.href = 'index.html'
                     }
+
+                    for (let prop in syncLocal) {
+
+                        if (syncLocal[prop].directory === currentMusic.directory) {
+                            if (confirm("Error! Já existe um Sync com essa música. Deseja substituir a existente por este Sync?") == true) {
+                                syncLocal.splice(prop, 1)
+                                break
+                            }
+
+                        }
+                    }
+
+                    saveSync()
                 }
 
-                saveSync()
+            } else {
+                alert('A música precisa ser finalizada antes de poder salvar!')
             }
 
         } else {
